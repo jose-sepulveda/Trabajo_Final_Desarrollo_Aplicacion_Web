@@ -1,0 +1,26 @@
+.menu {
+    list-style-type: none; /* elimina los puntos de la lista */
+    padding: 20px;
+    margin: 0;
+    display: flex; 
+    justify-content: flex-end;
+    background-color: #220D05;
+}
+
+.menu li {
+    margin-right: 20px; 
+}
+
+.menu li a {
+    text-decoration: none; 
+}
+
+.logo {
+    width: 100px; 
+    height: auto;
+}
+
+.logo-container {
+
+    margin-bottom: 20px; /* Ejemplo de estilo adicional para el contenedor del logo */
+}

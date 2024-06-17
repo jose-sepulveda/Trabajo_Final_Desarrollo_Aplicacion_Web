@@ -1,14 +1,20 @@
 import { Link, NavLink } from "react-router-dom";
+import '../../Styles/menu.css';
+import logo from '../../image/6.png';
+
+
 
 function Menu(){
     return <>
-        <h2>Menu</h2>
-        <ul>
+        <ul className="menu">
+        <div className="logo-container">
+            <img src={logo} alt="" className="logo" />
+         </div>
             {
              routes.map( (item, index)=>(
                 <li key={index}>
                     <NavLink 
-                        style={({isActive}) => ({color:isActive?"green":"grey"})}
+                        style={({isActive}) => ({color:isActive?"gray":"white"})}
                         to={item.to}>
                         {item.text}
                     </NavLink>
@@ -22,9 +28,12 @@ function Menu(){
 
 const routes = [];
 
-routes.push({to:"/", text:"Home"})
-routes.push({to:"/page1", text:"Pagina 1"})
-routes.push({to:"/page2", text:"Pagina 2"})
+routes.push({to:"/", text:"Inicio"})
+routes.push({to:"/coffeesPage", text:"Coffees"})
+routes.push({to:"/acercaDe", text:"Acerca de"})
+routes.push({to:"/loginPage", text:"Iniciar sesión"})
+routes.push({to:"/registroPage", text:"Registrate"})
+
 routes.push({to:"/cursos", text:"Mis Cursos"})
 
 export {Menu}
