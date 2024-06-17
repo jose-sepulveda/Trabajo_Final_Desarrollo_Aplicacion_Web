@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.container img {
+    width: 1300px;
+    height: 350px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px rgb(98, 48, 9);
+
+}
