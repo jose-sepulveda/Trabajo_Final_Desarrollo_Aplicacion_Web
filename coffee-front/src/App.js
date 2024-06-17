@@ -9,11 +9,6 @@ import { LoginPage } from './pages/LoginPage';
 import { RegistroPage } from './pages/RegistroPage';
 
 
-
-import { Cursos } from './pages/Cursos';
-import { MiCurso } from './components/MiCurso';
-
-
 function App() {
   return (
     <HashRouter>
@@ -24,10 +19,6 @@ function App() {
         <Route path="/acercaDe" element={<AcercaDePage />}/> 
         <Route path="/loginPage" element={<LoginPage />}/>
         <Route path="/registroPage" element={<RegistroPage />}/>
-
-        <Route path="/cursos" element={<Cursos />}>
-          <Route path=":url" element={<MiCurso />}/> 
-        </Route> 
         <Route path="*" element={<p>Ups, no existe la ruta</p>}/> 
       </Routes>
     </HashRouter>

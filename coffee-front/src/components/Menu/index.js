@@ -34,6 +34,4 @@ routes.push({to:"/acercaDe", text:"Acerca de"})
 routes.push({to:"/loginPage", text:"Iniciar sesión"})
 routes.push({to:"/registroPage", text:"Registrate"})
 
-routes.push({to:"/cursos", text:"Mis Cursos"})
-
 export {Menu}
