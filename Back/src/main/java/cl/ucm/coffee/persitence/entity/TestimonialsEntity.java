@@ -1,5 +1,7 @@
 package cl.ucm.coffee.persitence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,10 +32,12 @@ public class TestimonialsEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_coffee", referencedColumnName = "id_coffee", insertable = false, updatable = false)
+    @JsonBackReference("coffee-testimonials")
     private CoffeeEntity coffee;
 
     @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username",  insertable = false, updatable = false)
+    @JsonBackReference("user-testimonials")
     private UserEntity user;
 
 

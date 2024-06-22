@@ -1,4 +1,5 @@
 package cl.ucm.coffee.persitence.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,9 +35,11 @@ public class UserEntity {
     private Boolean disabled;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonManagedReference("user-roles")
     private List<UserRoleEntity> roles;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @JsonManagedReference("user-testimonials")
     private List<TestimonialsEntity> testimonials;
 
 

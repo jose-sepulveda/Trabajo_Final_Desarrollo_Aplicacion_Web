@@ -1,5 +1,6 @@
 package cl.ucm.coffee.persitence.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -33,5 +34,6 @@ public class UserRoleEntity {
 
     @ManyToOne
     @JoinColumn(name = "username", referencedColumnName = "username", insertable = false, updatable = false)
+    @JsonBackReference("user-roles")
     private UserEntity user;
 }
