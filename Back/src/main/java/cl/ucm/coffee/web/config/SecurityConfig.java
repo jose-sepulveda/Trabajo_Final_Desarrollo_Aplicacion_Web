@@ -37,8 +37,12 @@ public class SecurityConfig {
                 //.requestMatchers(HttpMethod.GET, "/api/coffee").hasAnyRole("ADMIN", "CUSTOMER")
                 //.requestMatchers(HttpMethod.GET, "/api/coffee/**").hasAnyRole("ADMIN", "CUSTOMER")
                 //.requestMatchers(HttpMethod.POST, "/api/coffee/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET,"/api/user/list").permitAll()
-                .requestMatchers(HttpMethod.POST,"/api/user/newUser").permitAll()
+                //Users
+                .requestMatchers(HttpMethod.GET,"/api/auth/list").permitAll()
+                .requestMatchers(HttpMethod.GET,"/api/auth/{username}").permitAll()
+                .requestMatchers(HttpMethod.POST,"/api/auth/newUser").permitAll()
+                .requestMatchers(HttpMethod.PUT,"/api/auth/{username}").permitAll()
+                //Coffee
                 .requestMatchers(HttpMethod.GET,"/api/coffee/list").permitAll()
                 .requestMatchers(HttpMethod.GET,"/api/coffee/{id}").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/coffee/newCoffee").permitAll()

@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface IUserService {
     List<UserEntity> getUsers();
+    UserEntity getUserByUsername(String username);
     UserEntity save( UserEntity userEntity);
+    UserEntity update(String username, UserEntity updateUser);
 }
