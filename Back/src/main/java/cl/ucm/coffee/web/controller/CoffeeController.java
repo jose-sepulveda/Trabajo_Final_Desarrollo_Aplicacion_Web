@@ -2,6 +2,7 @@ package cl.ucm.coffee.web.controller;
 
 
 import cl.ucm.coffee.persitence.entity.CoffeeEntity;
+import cl.ucm.coffee.persitence.entity.UserEntity;
 import cl.ucm.coffee.service.CoffeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -32,30 +34,75 @@ public class CoffeeController {
 
     @GetMapping("/list")
     public ResponseEntity<?> getCoffees(){
-        return ResponseEntity.ok(coffeeService.getCoffees());
+        try {
+            return ResponseEntity.ok(coffeeService.getCoffees());
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @GetMapping("/{coffeeId}")
     public ResponseEntity<CoffeeEntity> getOneCoffee(@PathVariable int coffeeId){
-        CoffeeEntity coffee = coffeeService.getCoffeeById(coffeeId);
-        return ResponseEntity.status(HttpStatus.OK).body(coffee);
+        try {
+            CoffeeEntity coffee = coffeeService.getCoffeeById(coffeeId);
+            return ResponseEntity.status(HttpStatus.OK).body(coffee);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/newCoffee")
     public ResponseEntity<?> saveCoffee(@RequestBody CoffeeEntity coffeeEntity){
-        return ResponseEntity.ok(coffeeService.save(coffeeEntity));
+        try {
+            return ResponseEntity.ok(coffeeService.save(coffeeEntity));
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CoffeeEntity> updateCoffee(@PathVariable int id, @RequestBody CoffeeEntity updatedCoffee){
-        CoffeeEntity updated = coffeeService.update(id, updatedCoffee);
-        return new ResponseEntity<>(updated, HttpStatus.OK);
+        try {
+            CoffeeEntity updated = coffeeService.update(id, updatedCoffee);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @DeleteMapping("/{coffeeId}")
     public ResponseEntity<String> deleteCoffee(@PathVariable int coffeeId){
-        coffeeService.delete(coffeeId);
-        return ResponseEntity.status(HttpStatus.OK).body("Coffee with ID " + coffeeId + "has been deleted");
+        try {
+            coffeeService.delete(coffeeId);
+            return ResponseEntity.status(HttpStatus.OK).body("Coffee with ID " + coffeeId + "has been deleted");
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> getCoffeeByName(@PathVariable String name){
+        try {
+            CoffeeEntity coffee = coffeeService.searchByName(name);
+            return ResponseEntity.ok(coffee);
+        } catch (IllegalArgumentException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

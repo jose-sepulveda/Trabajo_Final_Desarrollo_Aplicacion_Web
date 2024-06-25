@@ -1,6 +1,7 @@
 package cl.ucm.coffee.service;
 
 import cl.ucm.coffee.persitence.entity.CoffeeEntity;
+import cl.ucm.coffee.persitence.entity.UserEntity;
 import cl.ucm.coffee.persitence.repository.CoffeeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,6 +86,17 @@ public class CoffeeService implements ICoffeeService{
         } catch (Exception e){
             logger.error("Error al eliminar el café con id {}", coffeeId, e);
             throw new RuntimeException("Error al eliminar el café con id " + coffeeId, e);
+        }
+    }
+
+    @Override
+    public CoffeeEntity searchByName(String name) {
+        try {
+            Optional<CoffeeEntity> coffee = coffeeRepository.getCoffeeByName(name);
+            return coffee.orElseThrow(() -> new IllegalArgumentException("Café no encontrado"));
+        } catch (Exception e){
+            logger.error("Error al obtener el café con el nombre: {}", name, e);
+            throw new RuntimeException("Error al obtener el café con el nombre: " + name, e);
         }
     }
 

@@ -24,15 +24,9 @@ public class TestimonialsEntity {
     @Column(nullable = false, length = 30)
     private String testimonial;
 
-    @Column(name="id_coffee", nullable = false, length = 30)
-    private int idCoffee;
-
-
-
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_coffee", referencedColumnName = "id_coffee", insertable = false, updatable = false)
-    @JsonBackReference("coffee-testimonials")
+    @JsonBackReference("testimonials-coffee")
     private CoffeeEntity coffee;
 
     @ManyToOne

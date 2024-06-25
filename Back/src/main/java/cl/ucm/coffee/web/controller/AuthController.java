@@ -71,7 +71,6 @@ public class AuthController {
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     @PostMapping("/newUser")
@@ -92,6 +91,26 @@ public class AuthController {
         }  catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/bloquear/{username}")
+    public ResponseEntity<?> blockUser(@PathVariable String username){
+        try {
+            userService.blockUser(username);
+            return ResponseEntity.ok("Usuario bloqueado exitosamente");
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping("/disable/{username}")
+    public ResponseEntity<?> disableUser(@PathVariable String username){
+        try {
+            userService.disableUser(username);
+            return ResponseEntity.ok("Sesión cerrada exitosamente");
+        } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

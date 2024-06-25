@@ -42,12 +42,18 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/api/auth/{username}").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/auth/newUser").permitAll()
                 .requestMatchers(HttpMethod.PUT,"/api/auth/{username}").permitAll()
+                .requestMatchers(HttpMethod.PATCH,"/api/auth/bloquear/{username}").permitAll()
+                .requestMatchers(HttpMethod.PATCH,"/api/auth/disable/{username}").permitAll()
                 //Coffee
                 .requestMatchers(HttpMethod.GET,"/api/coffee/list").permitAll()
                 .requestMatchers(HttpMethod.GET,"/api/coffee/{id}").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/coffee/newCoffee").permitAll()
                 .requestMatchers(HttpMethod.PUT,"/api/coffee/{id}").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/api/coffee/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET,"/api/coffee/search/{name}").permitAll()
+                //Testimonials
+                .requestMatchers(HttpMethod.GET,"/api/testimonials/{idCoffee}").permitAll()
+                .requestMatchers(HttpMethod.POST,"/api/testimonials/newTestimonials").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -31,10 +31,10 @@ public class CoffeeEntity {
 
     @Lob
     @Column(columnDefinition = "LONGTEXT")
-    private  String image64;
+    private  byte[] image64;
 
-    @OneToMany(mappedBy = "coffee", fetch = FetchType.EAGER)
-    //@JsonBackReference("testimonials-coffee")
+    @OneToMany(mappedBy = "coffee", fetch = FetchType.LAZY)
+    @JsonManagedReference("testimonials-coffee")
     private List<TestimonialsEntity> testimonials;
 
 

@@ -10,4 +10,5 @@ public interface ICoffeeService {
     CoffeeEntity save(CoffeeEntity coffeeEntity);
     CoffeeEntity update(int coffeeId, CoffeeEntity updatedCoffee);
     void delete(int coffeeId);
+    CoffeeEntity searchByName(String name);
 }

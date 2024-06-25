@@ -10,4 +10,6 @@ public interface IUserService {
     UserEntity getUserByUsername(String username);
     UserEntity save( UserEntity userEntity);
     UserEntity update(String username, UserEntity updateUser);
+    UserEntity blockUser(String username);
+    UserEntity disableUser(String username);
 }
