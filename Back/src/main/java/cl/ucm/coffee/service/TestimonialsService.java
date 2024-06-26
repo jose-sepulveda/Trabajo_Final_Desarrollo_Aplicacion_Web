@@ -2,8 +2,10 @@ package cl.ucm.coffee.service;
 
 import cl.ucm.coffee.persitence.entity.CoffeeEntity;
 import cl.ucm.coffee.persitence.entity.TestimonialsEntity;
+import cl.ucm.coffee.persitence.entity.UserEntity;
 import cl.ucm.coffee.persitence.repository.CoffeeRepository;
 import cl.ucm.coffee.persitence.repository.TestimonialsRepository;
+import cl.ucm.coffee.persitence.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,18 +25,20 @@ public class TestimonialsService implements ITestimonialsService{
     @Autowired
     private CoffeeRepository coffeeRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+
     @Override
     public TestimonialsEntity save(TestimonialsEntity testimonials) {
         try {
-              Optional<CoffeeEntity> coffee = coffeeRepository.findById(testimonials.getCoffee().getIdCoffee());
-              if (coffee.isEmpty()){
-                  throw new EntityNotFoundException("Cafe con id " + testimonials.getCoffee().getIdCoffee() + " no encontrada");
-              }
-
-              return testimonialsRepository.save(testimonials);
-        } catch (Exception e){
-            logger.error("Error al guardar el testimonio: ", e);
-            throw new RuntimeException("Error al guardar el testimonio", e);
+            return testimonialsRepository.save(testimonials);
+        } catch (RuntimeException e) {
+            System.err.println("Error saving testimonial: " + e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            logger.error("Error crear el : ", e);
+            throw new RuntimeException("Error al crear el testimonio del coffee: ", e);
         }
     }
 

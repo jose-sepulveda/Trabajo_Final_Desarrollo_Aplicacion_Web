@@ -34,7 +34,7 @@ public class CoffeeEntity {
     private  byte[] image64;
 
     @OneToMany(mappedBy = "coffee", fetch = FetchType.LAZY)
-    @JsonManagedReference("testimonials-coffee")
+    @JsonManagedReference("coffee-testimonials")
     private List<TestimonialsEntity> testimonials;
 
 

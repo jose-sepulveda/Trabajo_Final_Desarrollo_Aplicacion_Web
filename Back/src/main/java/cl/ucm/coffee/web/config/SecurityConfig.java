@@ -53,7 +53,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/api/coffee/search/{name}").permitAll()
                 //Testimonials
                 .requestMatchers(HttpMethod.GET,"/api/testimonials/{idCoffee}").permitAll()
-                .requestMatchers(HttpMethod.POST,"/api/testimonials/newTestimonials").permitAll()
+                .requestMatchers(HttpMethod.POST,"/api/testimonials/newTestimonials/{idCoffee}/{username}").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
