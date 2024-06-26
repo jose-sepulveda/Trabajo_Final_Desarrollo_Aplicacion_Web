@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,17 +32,18 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
-        UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
-        Authentication authentication = this.authenticationManager.authenticate(login);
-
-       // System.out.println(authentication.isAuthenticated());
-       // System.out.println(authentication.getPrincipal());
-
-        String jwt = this.jwtUtil.create(loginDto.getUsername());
-        Map map = new HashMap<>();
-        map.put("token",jwt);
-        return ResponseEntity.ok(map);
-        //return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt).build();
+        try {
+            UsernamePasswordAuthenticationToken login = new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+            Authentication authentication = this.authenticationManager.authenticate(login);
+            String jwt = this.jwtUtil.create(loginDto.getUsername());
+            Map map = new HashMap<>();
+            map.put("token",jwt);
+            return ResponseEntity.ok(map);
+        } catch (AuthenticationException e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario o contraseña invalida");
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Un error ha ocurrido mientras se procesaba el inicio de sesión");
+        }
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

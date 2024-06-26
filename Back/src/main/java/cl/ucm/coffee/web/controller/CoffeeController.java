@@ -85,7 +85,7 @@ public class CoffeeController {
     public ResponseEntity<String> deleteCoffee(@PathVariable int coffeeId){
         try {
             coffeeService.delete(coffeeId);
-            return ResponseEntity.status(HttpStatus.OK).body("Coffee with ID " + coffeeId + "has been deleted");
+            return ResponseEntity.status(HttpStatus.OK).body("Café con ID " + coffeeId + " eliminado correctamente");
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e){
