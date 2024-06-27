@@ -97,7 +97,7 @@ public class UserService implements IUserService{
     public UserEntity blockUser(String username) {
         try {
             UserEntity user = userRepository.findById(username).orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con username " + username));
-            user.setLocked(true);
+            user.setLocked(!user.getLocked());
             return userRepository.save(user);
         } catch (Exception e){
             logger.error("Error al bloquear el usuario con username{}", username, e);
@@ -109,7 +109,7 @@ public class UserService implements IUserService{
     public UserEntity disableUser(String username) {
         try {
             UserEntity user = userRepository.findById(username).orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con username " + username));
-            user.setDisabled(true);
+            user.setDisabled(!user.getDisabled());
             return userRepository.save(user);
         } catch (Exception e){
             logger.error("Error al cerrar sesión del usuario con username{}", username, e);

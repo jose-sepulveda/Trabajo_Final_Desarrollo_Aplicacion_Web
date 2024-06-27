@@ -101,7 +101,7 @@ public class AuthController {
     public ResponseEntity<?> blockUser(@PathVariable String username){
         try {
             userService.blockUser(username);
-            return ResponseEntity.ok("Usuario bloqueado exitosamente");
+            return ResponseEntity.ok("Bloqueo de usuario modificado exitosamente");
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -111,7 +111,7 @@ public class AuthController {
     public ResponseEntity<?> disableUser(@PathVariable String username){
         try {
             userService.disableUser(username);
-            return ResponseEntity.ok("Sesión cerrada exitosamente");
+            return ResponseEntity.ok("Estado de sesión modificada exitosamente");
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
