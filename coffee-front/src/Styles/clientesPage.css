@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    width: 400px;
+    margin-left: 50px;
+    border-collapse: collapse; 
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  th {
+    background-color:  #c5a99e;
+    border: 1px solid  #754633;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Estilos para las celdas de datos */
+  td {
+    border: 1px solid  #754633;
+    padding: 8px;
+  }
