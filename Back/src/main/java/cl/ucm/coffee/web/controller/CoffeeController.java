@@ -3,12 +3,17 @@ package cl.ucm.coffee.web.controller;
 
 import cl.ucm.coffee.persitence.entity.CoffeeEntity;
 import cl.ucm.coffee.persitence.entity.UserEntity;
+import cl.ucm.coffee.persitence.repository.CoffeeRepository;
 import cl.ucm.coffee.service.CoffeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +23,9 @@ import java.util.Map;
 public class CoffeeController {
     @Autowired
     private CoffeeService coffeeService;
+
+    @Autowired
+    private CoffeeRepository coffeeRepository;
 
     @GetMapping("")
     public ResponseEntity<Map<String, String>> coffes(){
@@ -56,15 +64,21 @@ public class CoffeeController {
         }
     }
 
-    @PostMapping("/newCoffee")
-    public ResponseEntity<?> saveCoffee(@RequestBody CoffeeEntity coffeeEntity){
-        try {
-            return ResponseEntity.ok(coffeeService.save(coffeeEntity));
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @PostMapping(value = "/newCoffee", consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> saveCoffee(
+            @RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam("price") int price,
+            @RequestParam("image64") MultipartFile image64) throws IOException {
+        byte[] imageBytes = image64.getBytes();
+
+        CoffeeEntity coffee = new CoffeeEntity();
+        coffee.setName(name);
+        coffee.setDescription(description);
+        coffee.setPrice(price);
+        coffee.setImage64(imageBytes);
+        return ResponseEntity.ok(coffeeService.save(coffee));
+
 
     }
 
