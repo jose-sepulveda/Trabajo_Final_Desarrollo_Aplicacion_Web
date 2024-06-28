@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CoffeeApplication<Back>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cl.ucm.coffee.CoffeeApplication",
+            "projectName": "Back",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
