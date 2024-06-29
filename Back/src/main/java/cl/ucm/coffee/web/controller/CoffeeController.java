@@ -83,9 +83,9 @@ public class CoffeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CoffeeEntity> updateCoffee(@PathVariable int id, @RequestBody CoffeeEntity updatedCoffee){
+    public ResponseEntity<CoffeeEntity> updateCoffee(@PathVariable int id, @RequestParam("price") int price){
         try {
-            CoffeeEntity updated = coffeeService.update(id, updatedCoffee);
+            CoffeeEntity updated = coffeeService.update(id, price);
             return new ResponseEntity<>(updated, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

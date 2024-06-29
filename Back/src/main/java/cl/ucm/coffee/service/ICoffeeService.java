@@ -8,7 +8,7 @@ public interface ICoffeeService {
     List<CoffeeEntity> getCoffees();
     CoffeeEntity getCoffeeById(int coffeeId);
     CoffeeEntity save(CoffeeEntity coffeeEntity);
-    CoffeeEntity update(int coffeeId, CoffeeEntity updatedCoffee);
+    CoffeeEntity update(int coffeeId, int price);
     void delete(int coffeeId);
     CoffeeEntity searchByName(String name);
 }

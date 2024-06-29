@@ -50,23 +50,10 @@ public class CoffeeService implements ICoffeeService{
     }
 
     @Override
-    public CoffeeEntity update(int coffeeId, CoffeeEntity updatedCoffee) {
+    public CoffeeEntity update(int coffeeId, int price) {
         try {
             CoffeeEntity existingCoffee = coffeeRepository.findById(coffeeId).orElseThrow(() -> new IllegalArgumentException("Café "+ coffeeId +" no encontrado"));
-
-            if (updatedCoffee.getName() != null) {
-                existingCoffee.setName(updatedCoffee.getName());
-            }
-            if (updatedCoffee.getDescription() != null) {
-                existingCoffee.setDescription(updatedCoffee.getDescription());
-            }
-            if (updatedCoffee.getPrice() != 0) {
-                existingCoffee.setPrice(updatedCoffee.getPrice());
-            }
-            if (updatedCoffee.getImage64() != null) {
-                existingCoffee.setImage64(updatedCoffee.getImage64());
-            }
-
+            existingCoffee.setPrice(price);
             return coffeeRepository.save(existingCoffee);
         } catch (Exception e){
             logger.error("Error al actualizar el café con id {}", coffeeId, e);
