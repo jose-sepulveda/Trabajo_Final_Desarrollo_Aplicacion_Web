@@ -41,8 +41,6 @@ export async function registerAccount(newUser) {
 
 
 //funcion gestion coffee(formulario y tablita)
-// api.js
-
 export async function createCoffee(token, formData) {
     try {
         const res = await fetch("http://localhost:8080/api/coffee/newCoffee", {
@@ -50,15 +48,36 @@ export async function createCoffee(token, formData) {
             body: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
-                // No es necesario añadir 'Content-Type': 'multipart/form-data' ya que será configurado automáticamente
             }
         });
 
         const data = await res.json();
-        return data; // Retorna los datos de respuesta del backend
+        return data; 
     } catch (error) {
         console.error("Error al crear café:", error);
-        throw error; // Lanza el error para manejarlo donde se llame la función
+        throw error; 
+    }
+}
+
+// Función para obtener la lista de cafés
+export async function getCoffees(token) {
+    try {
+        const res = await fetch('http://localhost:8080/api/coffee/list', {
+            method: 'GET',
+            headers: {
+                "Authorization": `Bearer ${token}`, // Asegúrate de incluir el token de autenticación aquí
+            },
+        });
+
+        if (!res.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await res.json();
+        return data; // Retorna los datos de la lista de cafés
+    } catch (error) {
+        console.error('Error al obtener cafés:', error);
+        throw error;
     }
 }
 

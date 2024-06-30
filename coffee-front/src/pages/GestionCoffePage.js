@@ -1,9 +1,8 @@
-// GestionCoffePage.js
-
 import React, { useState, useContext } from "react";
-import { createCoffee } from "../services/api"; // Importa la función de creación de café
-import { AuthContext } from "../auth/AuthContext"; // Importa el contexto de autenticación
-import { jwtDecode } from "jwt-decode"; // Importa jwt-decode para decodificar el token JWT
+import { createCoffee } from "../services/api"; 
+import { AuthContext } from "../auth/AuthContext";
+import { jwtDecode } from "jwt-decode"; 
+import "../Styles/gestionCoffee.css";
 
 function GestionCoffePage() {
     const [name, setName] = useState("");
@@ -35,11 +34,11 @@ function GestionCoffePage() {
             formData.append("image64", image64);
 
             try {
-                const resp = await createCoffee(auth.token, formData); // Llama a la función para crear café
+                const resp = await createCoffee(auth.token, formData);
 
                 if (resp) {
                     alert("Café creado exitosamente");
-                    // Aquí puedes redirigir o hacer otra acción después de crear el café
+                    // Aquí hacer tablitaa con datos creados 
                 } else {
                     setErrorMessage("Error al registrar café");
                 }
@@ -48,14 +47,14 @@ function GestionCoffePage() {
                 setErrorMessage("Error al registrar café");
             }
         } else {
-            setErrorMessage("No tienes permisos para crear café.");
+            setErrorMessage("No eres ADMIN para crear café");
         }
     };
 
     return (
         <div className="crear-coffee-container">
             <div className="crear-coffee">
-                <h3>Añadir café</h3>
+                <h3>Nuevo coffee</h3>
                 <form onSubmit={crearCoffee}>
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre del café" />
                     <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descripción" />

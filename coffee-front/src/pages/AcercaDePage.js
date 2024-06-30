@@ -1,6 +1,6 @@
 function AcercaDePage (){
     return <>
-        <h3>Acerca de </h3>
+        <h3>Perfil alumnos</h3>
     </>
 }
 
