@@ -1,30 +1,33 @@
-// authContext.js
-import React from "react";
+import React, { createContext, useState, useEffect } from "react";
+import {jwtDecode} from "jwt-decode";
 
-export const AuthContext = React.createContext();
+export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [auth, setAuth] = React.useState({ token: null, role: null });
+    const [auth, setAuth] = useState({ token: null, role: null });
 
-    React.useEffect(() => {
+    useEffect(() => {
         const token = localStorage.getItem("token");
-        const role = localStorage.getItem("role"); // Agregar recuperación de rol
         if (token) {
-            setAuth({ token: token, role: role }); // Incluir el rol en el estado de auth
+            const decodedToken = jwtDecode(token);
+            const role = decodedToken.role;
+            setAuth({ token: token, role: role });
         }
     }, []);
 
-    const setToken = async (token, role) => {
+    const setToken = (token) => {
+        const decodedToken = jwtDecode(token);
+        const role = decodedToken.role;
         localStorage.setItem("token", token);
-        localStorage.setItem("role", role); // Guardar el rol en localStorage
+        localStorage.setItem("role", role);
         setAuth({ token: token, role: role });
-    }
+    };
 
     const logout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("role"); // Eliminar el rol al cerrar sesión
+        localStorage.removeItem("role");
         setAuth({ token: null, role: null });
-    }
+    };
 
     return (
         <AuthContext.Provider value={{ auth, setToken, logout }}>
