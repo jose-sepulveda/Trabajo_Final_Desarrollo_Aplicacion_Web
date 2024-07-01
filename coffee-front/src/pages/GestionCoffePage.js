@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { createCoffee } from "../services/api"; 
+import React, { useState, useContext, useEffect} from "react";
+import { createCoffee, getCoffees, updateCoffee, deleteCoffee} from "../services/api"; 
 import { AuthContext } from "../auth/AuthContext";
 import { jwtDecode } from "jwt-decode"; 
 import "../Styles/gestionCoffee.css";
@@ -9,6 +9,9 @@ function GestionCoffePage() {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [image64, setImage64] = useState(null);
+    const [coffees, setCoffees] = useState([]); //lista cafe
+    const [editPrice, setEditPrice] = useState("");//editar precio
+    const [editCoffeeId, setEditCoffeeId] = useState(null); //editar por id 
     const [errorMessage, setErrorMessage] = useState("");
     const { auth } = useContext(AuthContext);
 
@@ -18,7 +21,20 @@ function GestionCoffePage() {
         decodedToken = jwtDecode(auth.token);
     }
 
-    const handleImageChange = (e) => {
+    useEffect(() => {
+        async function ObtCoffees() {
+            try {
+                const coffeeList = await getCoffees(auth.token);
+                setCoffees(coffeeList);
+            } catch (error) {
+                console.error("Error al obtener la lista de cafés:", error);
+            }
+        }
+
+        ObtCoffees();
+    }, [auth.token]);
+
+    const cambioImg64 = (e) => {
         const file = e.target.files[0];
         setImage64(file);
     };
@@ -38,7 +54,14 @@ function GestionCoffePage() {
 
                 if (resp) {
                     alert("Café creado exitosamente");
-                    // Aquí hacer tablitaa con datos creados 
+                    // datos pa tablitaa con datos creados
+                    setName("");
+                    setDescription("");
+                    setPrice("");
+                    setImage64(null);
+                    setErrorMessage("");
+                    const coffeeList = await getCoffees(auth.token);
+                    setCoffees(coffeeList); 
                 } else {
                     setErrorMessage("Error al registrar café");
                 }
@@ -51,6 +74,38 @@ function GestionCoffePage() {
         }
     };
 
+    const editarPrecioo = async (coffeeId) => {
+        try {
+            await updateCoffee(auth.token, coffeeId, editPrice);
+            const updatedCoffees = coffees.map((coffee) =>
+                coffee.idCoffee === coffeeId ? { ...coffee, price: editPrice } : coffee
+            );
+            setCoffees(updatedCoffees);
+            setEditCoffeeId(null);
+            alert(`Se actualizo el precio de café ${coffeeId}`);
+        } catch (error) {
+            console.error(`Error al actualizar el precio ${coffeeId}:`, error);
+            if (error.response && error.response.status === 404) {
+                setErrorMessage(`El café con ID ${coffeeId} no fue encontrado.`);
+            } else {
+                setErrorMessage("Error al actualizar el precio del café");
+            }
+        }
+    };
+   
+    const eliminarCafe = async (coffeeId) => {
+        try {
+            await deleteCoffee(auth.token, coffeeId);
+            const filtrado = coffees.filter(coffee => coffee.idCoffee !== coffeeId);
+            setCoffees(filtrado);
+            alert("Café eliminado exitosamente");
+        } catch (error) {
+            console.error(`Error al eliminar café con ID ${coffeeId}:`, error);
+            setErrorMessage("Error al eliminar café");
+        }
+    };
+
+
     return (
         <div className="crear-coffee-container">
             <div className="crear-coffee">
@@ -59,10 +114,57 @@ function GestionCoffePage() {
                     <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nombre del café" />
                     <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descripción" />
                     <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Precio" />
-                    <input type="file" onChange={handleImageChange} required />
+                    <input type="file" onChange={cambioImg64} required />
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
                     <button type="submit">Agregar café</button>
                 </form>
+            </div>
+            <div className="lista-coffees">
+                <h3>Lista de cafés</h3>
+                <table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {coffees.map((coffee) => (
+            <tr key={coffee.idCoffee}>
+                <td>{coffee.idCoffee}</td>
+                <td>{coffee.name}</td>
+                <td>{coffee.description}</td>
+                <td>
+                    {editCoffeeId === coffee.idCoffee ? (
+                        <input type="number" value={editPrice} onChange={(e) => setEditPrice(e.target.value)} placeholder="Nuevo Precio" />
+                    ) : (
+                        coffee.price
+                    )}
+                </td>
+                <td>
+                    {coffee.image64 && (
+                        <img src={`data:image/jpeg;base64,${coffee.image64}`} alt={coffee.name} style={{ maxWidth: "100px", maxHeight: "100px" }} />
+                    )}
+                </td>
+                <td>
+                    {editCoffeeId === coffee.idCoffee ? (
+                        <button onClick={() => editarPrecioo(coffee.idCoffee)}>Guardar</button>
+                    ) : (
+                        <button onClick={() => setEditCoffeeId(coffee.idCoffee)}>Editar</button>
+                    )}
+                    <button onClick={() => eliminarCafe(coffee.idCoffee)}>Eliminar</button>
+                </td>
+            </tr>
+        ))}
+    </tbody>
+</table>
+
+    
+            
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import imagen from '../image/5.png';
+import imagen from '../image/10.png';
 import '../Styles/inicioPage.css';
 
 

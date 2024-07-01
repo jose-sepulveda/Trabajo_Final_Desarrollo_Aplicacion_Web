@@ -1,5 +1,4 @@
-//login = {username:"", password:""}
-//login es una data 
+//LOGIN
 export async function loginAccount(login){
     try {
         const res = await fetch("http://localhost:8080/api/auth/login", {
@@ -16,10 +15,9 @@ export async function loginAccount(login){
         console.log(error);
         return null;
     }
-
 }
 
-//funcion registro
+//REGISTRO DE USUARIO
 export async function registerAccount(newUser) {
     try {
         const res = await fetch("http://localhost:8080/api/auth/newUser", {
@@ -40,7 +38,7 @@ export async function registerAccount(newUser) {
 }
 
 
-//funcion gestion coffee(formulario y tablita)
+//CREAR CAFE
 export async function createCoffee(token, formData) {
     try {
         const res = await fetch("http://localhost:8080/api/coffee/newCoffee", {
@@ -59,36 +57,80 @@ export async function createCoffee(token, formData) {
     }
 }
 
-// Función para obtener la lista de cafés
+//OBTENER LISTA DE CAFE 
 export async function getCoffees(token) {
     try {
-        const res = await fetch('http://localhost:8080/api/coffee/list', {
-            method: 'GET',
+        const response = await fetch("http://localhost:8080/api/coffee/list", {
+            method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`, // Asegúrate de incluir el token de autenticación aquí
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const coffees = await response.json();
+        return coffees;
+    } catch (error) {
+        console.error("Error al obtener coffee list:", error);
+        throw error;
+    }
+}
+//ACTUALIZAR CAFE POR ID 
+export const updateCoffee = async (token, coffeeId, newPrice) => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/coffee/${coffeeId}?price=${newPrice}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             },
         });
 
-        if (!res.ok) {
-            throw new Error('Network response was not ok');
+        if (response.ok) {
+            const updatedCoffee = await response.json();
+            return updatedCoffee; 
+        } else {
+            console.error(`Error al actualizar el precio del café ${coffeeId}`);
+            throw new Error(`Error updating coffee with ID ${coffeeId}. Status: ${response.status}`);
         }
-
-        const data = await res.json();
-        return data; // Retorna los datos de la lista de cafés
     } catch (error) {
-        console.error('Error al obtener cafés:', error);
+        console.error('Error al intentar actualizar el precio del café:', error);
+        throw error;
+    }
+};
+
+
+
+//ELIMINAR CAFE POR ID 
+export async function deleteCoffee(token, coffeeId) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/coffee/${coffeeId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text(); 
+    } catch (error) {
+        console.error(`Error al eliminar coffee with ID ${coffeeId}:`, error);
         throw error;
     }
 }
 
-//lista usuarios 
-// Función para obtener datos de usuarios con rol ADMIN
+
+//OBTENER LISTA DE USUARIOS
 export async function getUsersData(token) {
     try {
         const res = await fetch("http://localhost:8080/api/auth/list", {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`, // Asegúrate de incluir el token de autenticación aquí
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
         });

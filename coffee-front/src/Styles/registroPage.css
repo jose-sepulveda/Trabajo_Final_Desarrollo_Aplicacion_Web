@@ -2,12 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    margin-top: 50px;
 }
 
 .registro {
     width: 400px;
     text-align: center;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px rgb(98, 48, 9);
 }
 
 .registro h3 {
@@ -31,10 +33,11 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .registro button:hover {
-    background-color: #0056b3;
+    background-color: #c5a99e;
 }
 
 .error-message {
