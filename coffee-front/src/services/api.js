@@ -58,13 +58,12 @@ export async function createCoffee(token, formData) {
 }
 
 //OBTENER LISTA DE CAFE 
-export async function getCoffees(token) {
+export async function getCoffees() {
     try {
         const response = await fetch("http://localhost:8080/api/coffee/list", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
             }
         });
         if (!response.ok) {
@@ -77,6 +76,7 @@ export async function getCoffees(token) {
         throw error;
     }
 }
+
 //ACTUALIZAR CAFE POR ID 
 export const updateCoffee = async (token, coffeeId, newPrice) => {
     try {
@@ -145,5 +145,26 @@ export async function getUsersData(token) {
     } catch (error) {
         console.error('Error al obtener datos de usuarios:', error);
         return null;
+    }
+}
+
+
+//CREAR TESTIMONIO 
+export async function ccreateTestimonial(token, idCoffee, username, testimonialData) {
+    try {
+        const res = await fetch(`http://localhost:8080/api/testimonials/newTestimonials/${idCoffee}/${username}`, {
+            method: "POST",
+            body: JSON.stringify(testimonialData),
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`,
+            }
+        });
+
+        const data = await res.json();
+        return data; 
+    } catch (error) {
+        console.error("Error al crear café:", error);
+        throw error; 
     }
 }

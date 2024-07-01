@@ -28,6 +28,9 @@ function App() {
         <Route path="/registroPage" element={<RegistroPage />}/>
         <Route path="*" element={<p>Ups, no existe la ruta</p>}/> 
       </Routes>
+      <footer className="footer">
+          Chile, 2024
+        </footer>
     </HashRouter>
     </AuthProvider> //todo lo que este dentro de esto se podra usaar el metodo del AuthContext 
   );

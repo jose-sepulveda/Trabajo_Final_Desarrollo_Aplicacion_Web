@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PATCH,"/api/auth/bloquear/{username}").hasAnyRole("ADMIN")
                 .requestMatchers(HttpMethod.PATCH,"/api/auth/disable/{username}").hasAnyRole("ADMIN", "CUSTOMER")
                 //Coffee
-                .requestMatchers(HttpMethod.GET,"/api/coffee/list").hasAnyRole("ADMIN", "CUSTOMER")
+                .requestMatchers(HttpMethod.GET,"/api/coffee/list").permitAll()
                 .requestMatchers(HttpMethod.GET,"/api/coffee/{id}").hasAnyRole("ADMIN", "CUSTOMER")
                 .requestMatchers(HttpMethod.POST,"/api/coffee/newCoffee").hasAnyRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT,"/api/coffee/{id}").hasAnyRole("ADMIN")

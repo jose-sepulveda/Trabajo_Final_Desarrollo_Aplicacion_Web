@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect} from "react";
 import { createCoffee, getCoffees, updateCoffee, deleteCoffee} from "../services/api"; 
 import { AuthContext } from "../auth/AuthContext";
 import { jwtDecode } from "jwt-decode"; 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../Styles/gestionCoffee.css";
 
 function GestionCoffePage() {
@@ -10,7 +12,7 @@ function GestionCoffePage() {
     const [price, setPrice] = useState("");
     const [image64, setImage64] = useState(null);
     const [coffees, setCoffees] = useState([]); //lista cafe
-    const [editPrice, setEditPrice] = useState("");//editar precio
+    const [editPrice, setEditPrice] = useState("");
     const [editCoffeeId, setEditCoffeeId] = useState(null); //editar por id 
     const [errorMessage, setErrorMessage] = useState("");
     const { auth } = useContext(AuthContext);
@@ -53,7 +55,11 @@ function GestionCoffePage() {
                 const resp = await createCoffee(auth.token, formData);
 
                 if (resp) {
-                    alert("Café creado exitosamente");
+                    toast.success("Café creado exitosamente", {
+                        position: "top-center", 
+                        autoClose: 2000
+                    });
+
                     // datos pa tablitaa con datos creados
                     setName("");
                     setDescription("");
@@ -82,7 +88,12 @@ function GestionCoffePage() {
             );
             setCoffees(updatedCoffees);
             setEditCoffeeId(null);
-            alert(`Se actualizo el precio de café ${coffeeId}`);
+
+            toast.success(`Se actualizó el precio de café ${coffeeId}`, {
+                position: "top-center", 
+                autoClose: 2000
+            });
+
         } catch (error) {
             console.error(`Error al actualizar el precio ${coffeeId}:`, error);
             if (error.response && error.response.status === 404) {
@@ -98,7 +109,12 @@ function GestionCoffePage() {
             await deleteCoffee(auth.token, coffeeId);
             const filtrado = coffees.filter(coffee => coffee.idCoffee !== coffeeId);
             setCoffees(filtrado);
-            alert("Café eliminado exitosamente");
+
+            toast.success("Café eliminado exitosamente", {
+                position: "top-center", 
+                autoClose: 2000
+            });
+
         } catch (error) {
             console.error(`Error al eliminar café con ID ${coffeeId}:`, error);
             setErrorMessage("Error al eliminar café");
@@ -122,49 +138,47 @@ function GestionCoffePage() {
             <div className="lista-coffees">
                 <h3>Lista de cafés</h3>
                 <table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th>Imagen</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
-    <tbody>
-        {coffees.map((coffee) => (
-            <tr key={coffee.idCoffee}>
-                <td>{coffee.idCoffee}</td>
-                <td>{coffee.name}</td>
-                <td>{coffee.description}</td>
-                <td>
-                    {editCoffeeId === coffee.idCoffee ? (
-                        <input type="number" value={editPrice} onChange={(e) => setEditPrice(e.target.value)} placeholder="Nuevo Precio" />
-                    ) : (
-                        coffee.price
-                    )}
-                </td>
-                <td>
-                    {coffee.image64 && (
-                        <img src={`data:image/jpeg;base64,${coffee.image64}`} alt={coffee.name} style={{ maxWidth: "100px", maxHeight: "100px" }} />
-                    )}
-                </td>
-                <td>
-                    {editCoffeeId === coffee.idCoffee ? (
-                        <button onClick={() => editarPrecioo(coffee.idCoffee)}>Guardar</button>
-                    ) : (
-                        <button onClick={() => setEditCoffeeId(coffee.idCoffee)}>Editar</button>
-                    )}
-                    <button onClick={() => eliminarCafe(coffee.idCoffee)}>Eliminar</button>
-                </td>
-            </tr>
-        ))}
-    </tbody>
-</table>
-
-    
-            
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Imagen</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {coffees.map((coffee) => (
+                            <tr key={coffee.idCoffee}>
+                                <td>{coffee.idCoffee}</td>
+                                <td>{coffee.name}</td>
+                                <td>{coffee.description}</td>
+                                <td>
+                                    {editCoffeeId === coffee.idCoffee ? (
+                                        <input type="number" value={editPrice} onChange={(e) => setEditPrice(e.target.value)} placeholder="Nuevo Precio" />
+                                    ) : (
+                                        coffee.price
+                                    )}
+                                </td>
+                                <td>
+                                    {coffee.image64 && (
+                                        <img src={`data:image/jpeg;base64,${coffee.image64}`} alt={coffee.name} style={{ maxWidth: "100px", maxHeight: "100px" }} />
+                                    )}
+                                </td>
+                                <td>
+                                    {editCoffeeId === coffee.idCoffee ? (
+                                        <button onClick={() => editarPrecioo(coffee.idCoffee)}>Guardar</button>
+                                    ) : (
+                                        <button onClick={() => setEditCoffeeId(coffee.idCoffee)}>Editar</button>
+                                    )}
+                                    <button onClick={() => eliminarCafe(coffee.idCoffee)}>Eliminar</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <ToastContainer /> 
             </div>
         </div>
     );

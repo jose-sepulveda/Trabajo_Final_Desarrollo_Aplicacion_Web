@@ -12,7 +12,7 @@
 
 .crear-coffee h3{
     margin-bottom: 20px;
-    color: #333;
+    color: #000000;
 }
 
 .crear-coffee input{
@@ -41,14 +41,33 @@
 .lista-coffees table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;    
 }
 
 .lista-coffees th, 
 .lista-coffees td {
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
 
 .lista-coffees th {
-    background-color: #c5a99e;
+    background-color: #754633;
+    color: white;
+}
+
+.lista-coffees td button {
+    width: 80px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #754633;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.lista-coffees .error-message {
+    color: rgb(122, 27, 27);
+    font-size: 14px;
+    margin-top: 5px;
 }
