@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect} from "react";
-import { createCoffee, getCoffees, updateCoffee, deleteCoffee} from "../services/api"; 
+import { createCoffee, getCoffees, updateCoffee, deleteCoffee, getTestimonioCoffee} from "../services/api"; 
 import { AuthContext } from "../auth/AuthContext";
 import { jwtDecode } from "jwt-decode"; 
 import { ToastContainer, toast } from 'react-toastify';
@@ -14,6 +14,7 @@ function GestionCoffePage() {
     const [coffees, setCoffees] = useState([]); //lista cafe
     const [editPrice, setEditPrice] = useState("");
     const [editCoffeeId, setEditCoffeeId] = useState(null); //editar por id 
+    const [testimonials, setTestimonials] = useState({});
     const [errorMessage, setErrorMessage] = useState("");
     const { auth } = useContext(AuthContext);
 
@@ -28,6 +29,15 @@ function GestionCoffePage() {
             try {
                 const coffeeList = await getCoffees(auth.token);
                 setCoffees(coffeeList);
+
+                 // Obtener testimonios para cada café
+                 const testimonialsData = {};
+                 for (const coffee of coffeeList) {
+                     const coffeeTestimonials = await getTestimonioCoffee(coffee.idCoffee);
+                     testimonialsData[coffee.idCoffee] = coffeeTestimonials;
+                 }
+                 setTestimonials(testimonialsData);
+
             } catch (error) {
                 console.error("Error al obtener la lista de cafés:", error);
             }
@@ -145,6 +155,7 @@ function GestionCoffePage() {
                             <th>Descripción</th>
                             <th>Precio</th>
                             <th>Imagen</th>
+                            <th>Testimonios</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
@@ -165,6 +176,13 @@ function GestionCoffePage() {
                                     {coffee.image64 && (
                                         <img src={`data:image/jpeg;base64,${coffee.image64}`} alt={coffee.name} style={{ maxWidth: "100px", maxHeight: "100px" }} />
                                     )}
+                                </td>
+                                <td>
+                                    {testimonials[coffee.idCoffee] && testimonials[coffee.idCoffee].map((testimonial, index) => (
+                                        <div key={index}>
+                                            <strong>{testimonial.username}:</strong> {testimonial.testimonial}
+                                        </div>
+                                    ))}
                                 </td>
                                 <td>
                                     {editCoffeeId === coffee.idCoffee ? (

@@ -186,3 +186,18 @@ export async function createTestimonial(token, idCoffee, username, testimonialDa
         throw error; 
     }
 }
+
+
+//OBTENER TESTIMONIOS 
+export async function getTestimonioCoffee(idCoffee) {
+    const response = await fetch(`http://localhost:8080/api/testimonials/${idCoffee}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (!response.ok) {
+        throw new Error('Error al obtener testimonios');
+    }
+    return await response.json();
+}
