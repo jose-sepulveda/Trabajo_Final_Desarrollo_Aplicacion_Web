@@ -123,6 +123,25 @@ export async function deleteCoffee(token, coffeeId) {
     }
 }
 
+//FILTRAR CAFE
+export const getCoffeeByName = async (name) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/coffee/search/${name}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    } catch (error) {
+      console.error('Error al obtener coffee por nombre:', error);
+      throw error;
+    }
+  };
+
 
 //OBTENER LISTA DE USUARIOS
 export async function getUsersData(token) {

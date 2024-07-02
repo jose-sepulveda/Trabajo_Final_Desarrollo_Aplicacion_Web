@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST,"/api/coffee/newCoffee").hasAnyRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT,"/api/coffee/{id}").hasAnyRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/api/coffee/{id}").hasAnyRole("ADMIN")
-                .requestMatchers(HttpMethod.GET,"/api/coffee/search/{name}").hasAnyRole("CUSTOMER")
+                .requestMatchers(HttpMethod.GET,"/api/coffee/search/{name}").permitAll()
                 //Testimonials
                 .requestMatchers(HttpMethod.GET,"/api/testimonials/{idCoffee}").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/testimonials/newTestimonials/{idCoffee}/{username}").hasAnyRole("CUSTOMER")
