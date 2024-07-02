@@ -12,7 +12,7 @@ function CoffeesList() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchCoffees = async () => {
+        const ObtCoffees = async () => {
             try {
                 const coffeesData = await getCoffees(token);
                 setCoffees(coffeesData);
@@ -23,7 +23,7 @@ function CoffeesList() {
             }
         };
 
-        fetchCoffees();
+        ObtCoffees();
     }, [token]);
 
     if (loading) {
@@ -42,9 +42,9 @@ function CoffeesList() {
                     <h4>{coffee.name}</h4>
                     <p>{coffee.description}</p>
                     <p>{coffee.price} $</p>
-                    {/* Mostrar el componente Testimonio solo para CUSTOMER */}
+                    {/* Muestra el componente Testimonio solo para CUSTOMER */}
                     {auth.role === 'CUSTOMER' && (
-                        <Testimonio idCoffee={coffee.idCoffee} username={auth.username} />
+                        <Testimonio idCoffee={coffee.idCoffee} />
                     )}
                 </div>
             ))}

@@ -4,15 +4,15 @@ import { createTestimonial } from '../services/api';
 import { toast } from 'react-toastify';
 import { Modal, Button } from 'react-bootstrap';
 
-const Testimonio = ({ idCoffee, username }) => {
+const Testimonio = ({ idCoffee }) => {
     const [testimonialData, setTestimonialData] = useState('');
     const [show, setShow] = useState(false);
     const { auth } = useContext(AuthContext);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const cerrarModal = () => setShow(false);
+    const mostrarModal = () => setShow(true);
 
-    const handleSubmit = async (e) => {
+    const envioModal = async (e) => {
         e.preventDefault();
         if (auth.role !== 'CUSTOMER') {
             toast.error('Solo los clientes pueden crear testimonios');
@@ -20,10 +20,10 @@ const Testimonio = ({ idCoffee, username }) => {
         }
 
         try {
-            const data = await createTestimonial(auth.token, idCoffee, username, { testimonial: testimonialData });
+            const data = await createTestimonial(auth.token, idCoffee, auth.username, { testimonial: testimonialData });
             toast.success('Testimonio creado con éxito');
             console.log('Datos del testimonio creado:', data);
-            handleClose();
+            cerrarModal();
         } catch (error) {
             toast.error('Error al crear el testimonio');
             console.error('Error:', error);
@@ -32,18 +32,16 @@ const Testimonio = ({ idCoffee, username }) => {
 
     return (
         <>
-            {auth.role === 'CUSTOMER' && (  
-                <Button variant="primary" onClick={handleShow}>
-                    Crear Testimonio
-                </Button>
-            )}
+            <Button variant="primary" onClick={mostrarModal}>
+                Crear Testimonio
+            </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={cerrarModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Crear Testimonio</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={envioModal}>
                         <div className="form-group">
                             <label htmlFor="testimonial">Testimonio:</label>
                             <textarea
