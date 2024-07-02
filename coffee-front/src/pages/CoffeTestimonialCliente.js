@@ -2,13 +2,14 @@
 import React from 'react';
 import CoffeesList from '../components/CoffeesList';
 
-function CoffeesPage() {
+function CoffeTestimonialCliente() {
     return (
         <>
-            <h3>Coffees de general y adminn</h3>
+            <h3>Coffees de cliente</h3>
             <CoffeesList />
         </>
     );
 }
 
-export { CoffeesPage };
+export { CoffeTestimonialCliente };
+

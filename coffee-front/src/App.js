@@ -11,6 +11,7 @@ import { AuthProvider } from './auth/AuthContext';
 import { GestionCoffePage } from './pages/GestionCoffePage';
 import { ClientesPage} from './pages/ClientesPage';
 import { PrivateRoute } from './auth/PrivateRoute';
+import { CoffeTestimonialCliente } from './pages/CoffeTestimonialCliente';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/login" element={<LoginPage />}/>
         <Route path="/gestion-coffee" element={<PrivateRoute><GestionCoffePage /></PrivateRoute>}/>
         <Route path="/clientes-page" element={<PrivateRoute><ClientesPage /></PrivateRoute>}/>
+        <Route path="/testimonial-clientes" element={<PrivateRoute><CoffeTestimonialCliente/></PrivateRoute>}/>
         <Route path="/registroPage" element={<RegistroPage />}/>
         <Route path="*" element={<p>Ups, no existe la ruta</p>}/> 
       </Routes>

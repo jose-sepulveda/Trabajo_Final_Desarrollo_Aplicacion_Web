@@ -32,7 +32,13 @@ function Menu(){
             routes.push({ to: "/gestion-coffee", text: "Gestión coffee" });
             routes.push({ to: "/clientes-page", text: "Clientes Page" });
         }
+
+        if (decodedToken.role === "CUSTOMER") {
+            routes.push({to:"/testimonial-clientes", text:"Coffees"})
+        }
     }
+
+
 
     const cerrarSession = ()=>{
         logout();
