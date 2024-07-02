@@ -12,7 +12,7 @@ function CoffeTestimonialCliente() {
     return (
         <>
             <h3>Coffees de cliente</h3>
-            <FiltroCoffeeComponents filtrar={filtrar} /> {/* Ensure the prop name is 'filtrar' */}
+            <FiltroCoffeeComponents filtrar={filtrar} />
             {filteredCoffee && (
                 <div>
                     <h2>Coffee Filtered:</h2>
@@ -22,8 +22,8 @@ function CoffeTestimonialCliente() {
                 </div>
             )}
             <CoffeesList />
-        </>
+           </>
     );
 }
 
-export { CoffeTestimonialCliente };
+export {CoffeTestimonialCliente};

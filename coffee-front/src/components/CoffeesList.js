@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { getCoffees } from '../services/api';
 import { AuthContext } from '../auth/AuthContext';
+import Testimonio from '../components/testimonio'; // Importa el componente Testimonio
 import "../Styles/coffePage.css";
 
 function CoffeesList() {
@@ -41,6 +42,10 @@ function CoffeesList() {
                     <h4>{coffee.name}</h4>
                     <p>{coffee.description}</p>
                     <p>{coffee.price} $</p>
+                    {/* Mostrar el componente Testimonio solo para CUSTOMER */}
+                    {auth.role === 'CUSTOMER' && (
+                        <Testimonio idCoffee={coffee.idCoffee} username={auth.username} />
+                    )}
                 </div>
             ))}
         </div>

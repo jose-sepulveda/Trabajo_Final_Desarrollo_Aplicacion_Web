@@ -167,13 +167,12 @@ export async function getUsersData(token) {
     }
 }
 
-
-//CREAR TESTIMONIO 
+//CREAR TESTIMONIO
 export async function createTestimonial(token, idCoffee, username, testimonialData) {
     try {
         const res = await fetch(`http://localhost:8080/api/testimonials/newTestimonials/${idCoffee}/${username}`, {
             method: "POST",
-            body: JSON.stringify(testimonialData),
+            body: JSON.stringify(testimonialData), // Debes enviar testimonialData directamente como objeto
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${token}`,
@@ -183,7 +182,7 @@ export async function createTestimonial(token, idCoffee, username, testimonialDa
         const data = await res.json();
         return data; 
     } catch (error) {
-        console.error("Error al crear café:", error);
+        console.error("Error al crear testimonio:", error);
         throw error; 
     }
 }

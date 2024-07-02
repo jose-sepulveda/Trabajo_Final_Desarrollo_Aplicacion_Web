@@ -12,7 +12,9 @@ import { GestionCoffePage } from './pages/GestionCoffePage';
 import { ClientesPage} from './pages/ClientesPage';
 import { PrivateRoute } from './auth/PrivateRoute';
 import { CoffeTestimonialCliente } from './pages/CoffeTestimonialCliente';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
           Chile, 2024
         </footer>
     </HashRouter>
+    <ToastContainer position="top-center" autoClose={1000} />
     </AuthProvider> //todo lo que este dentro de esto se podra usaar el metodo del AuthContext 
   );
 }
