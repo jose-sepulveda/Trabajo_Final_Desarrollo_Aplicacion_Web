@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink} from "react-router-dom";
+import { NavLink, useNavigate }from "react-router-dom";
 import '../../Styles/menu.css';
 import logo from '../../image/6.png';
 import { AuthContext } from "../../auth/AuthContext";
@@ -11,23 +11,24 @@ function Menu(){
 
     const {auth, logout} = React.useContext(AuthContext);//para cerrar sesion
     let decodedToken = null;
+    const navigate = useNavigate(); 
 
     if (auth.token){ //crear condicion de role === "ADMIN"
         console.log(auth.token);
         decodedToken = jwtDecode(auth.token);
         console.log(decodedToken.role);
- 
+
 
         routes.splice(0, routes.length); //limpia las rutas
 
         //rutas general
         routes.push({to:"/", text:"Inicio"})
-        routes.push({to:"/coffeesPage", text:"Coffees"})
         routes.push({to:"/acercaDe", text:"Acerca de"})
 
 
         //rutas para ADMIN
         if (decodedToken.role === "ADMIN") {
+            routes.push({to:"/coffeesPage", text:"Coffees"})
             routes.push({ to: "/gestion-coffee", text: "Gestión coffee" });
             routes.push({ to: "/clientes-page", text: "Clientes Page" });
         }
@@ -43,6 +44,8 @@ function Menu(){
         routes.push({to:"/acercaDe", text:"Acerca de"})
         routes.push({to:"/login", text:"Iniciar sesión"})
         routes.push({to:"/registroPage", text:"Registrate"})
+
+        navigate("/");
     }
 
     return <>

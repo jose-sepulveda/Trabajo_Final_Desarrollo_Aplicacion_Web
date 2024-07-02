@@ -150,7 +150,7 @@ export async function getUsersData(token) {
 
 
 //CREAR TESTIMONIO 
-export async function ccreateTestimonial(token, idCoffee, username, testimonialData) {
+export async function createTestimonial(token, idCoffee, username, testimonialData) {
     try {
         const res = await fetch(`http://localhost:8080/api/testimonials/newTestimonials/${idCoffee}/${username}`, {
             method: "POST",
