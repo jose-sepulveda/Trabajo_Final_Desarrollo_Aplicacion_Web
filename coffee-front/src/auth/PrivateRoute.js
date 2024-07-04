@@ -10,7 +10,3 @@ function PrivateRoute({children}){
 }
 
 export {PrivateRoute};
-
-
-
-//despues considerar rol las vistas que se muestran 

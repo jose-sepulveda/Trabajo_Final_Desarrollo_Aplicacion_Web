@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { getCoffees } from '../services/api';
 import { AuthContext } from '../auth/AuthContext';
-import Testimonio from '../components/testimonio'; // Importa el componente Testimonio
+import Testimonio from '../components/testimonio'; 
+import ListaTestimonio from './ListaTestimonio';
+import { Modal, Button } from 'react-bootstrap';
 import "../Styles/coffePage.css";
 
 function CoffeesList() {
@@ -10,6 +12,8 @@ function CoffeesList() {
     const [coffees, setCoffees] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedCoffee, setSelectedCoffee] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
 
     useEffect(() => {
         const ObtCoffees = async () => {
@@ -25,6 +29,16 @@ function CoffeesList() {
 
         ObtCoffees();
     }, [token]);
+
+    const openModal = (coffee) => {
+        setSelectedCoffee(coffee);
+        setModalShow(true);
+    };
+
+    const closeModal = () => {
+        setSelectedCoffee(null);
+        setModalShow(false);
+    };
 
     if (loading) {
         return <p>Loading...</p>;
@@ -42,11 +56,30 @@ function CoffeesList() {
                     <h5>COFFEE #{coffee.name}</h5>
                     <p>{coffee.description}</p>
                     <p>${coffee.price} </p>
+                    <Button variant="primary" onClick={() => openModal(coffee)}>
+                        Ver Testimonios
+                    </Button>
+                    {/* Muestra el componente Testimonio solo para CUSTOMER */}
                     {auth.role === 'CUSTOMER' && (
                         <Testimonio idCoffee={coffee.idCoffee} />
                     )}
                 </div>
             ))}
+            <Modal show={modalShow} onHide={closeModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Testimonios de {selectedCoffee && selectedCoffee.name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {selectedCoffee && (
+                        <ListaTestimonio idCoffee={selectedCoffee.idCoffee} />
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={closeModal}>
+                        Cerrar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

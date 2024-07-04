@@ -34,3 +34,8 @@
 .cafe-card p {
     margin: 5px 0;
 }
+
+.cafe-card button{
+    margin-bottom: 20px;
+    width: 200px;
+}
