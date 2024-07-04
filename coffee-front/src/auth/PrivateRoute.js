@@ -6,7 +6,7 @@ import { AuthContext } from "./AuthContext";
 function PrivateRoute({children}){
     const {auth} = React.useContext(AuthContext);
     const location = useLocation();
-    return auth.token?(children):<Navigate to = {"/login"} replace state={{path: location.pathname}}></Navigate>
+    return auth.token?(children):<Navigate to = {""} replace state={{path: location.pathname}}></Navigate>
 }
 
 export {PrivateRoute};

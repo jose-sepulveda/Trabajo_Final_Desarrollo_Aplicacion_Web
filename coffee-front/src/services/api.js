@@ -3,7 +3,7 @@ export async function loginAccount(login){
     try {
         const res = await fetch("http://localhost:8080/api/auth/login", {
             method:"POST",
-            body:JSON.stringify(login),  //convierte a un string 
+            body:JSON.stringify(login),  
             headers:{
                 "Content-Type":"application/json"
             }
@@ -67,7 +67,7 @@ export async function getCoffees() {
             }
         });
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`Otro error: ${response.status}`);
         }
         const coffees = await response.json();
         return coffees;
@@ -93,7 +93,7 @@ export const updateCoffee = async (token, coffeeId, newPrice) => {
             return updatedCoffee; 
         } else {
             console.error(`Error al actualizar el precio del café ${coffeeId}`);
-            throw new Error(`Error updating coffee with ID ${coffeeId}. Status: ${response.status}`);
+            throw new Error(`Error al actualizar cafe con ID ${coffeeId}. estado: ${response.status}`);
         }
     } catch (error) {
         console.error('Error al intentar actualizar el precio del café:', error);
@@ -114,7 +114,7 @@ export async function deleteCoffee(token, coffeeId) {
             }
         });
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`otro error: ${response.status}`);
         }
         return response.text(); 
     } catch (error) {
@@ -155,7 +155,7 @@ export async function getUsersData(token) {
         });
         
         if (!res.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('...');
         }
 
         const data = await res.json();
@@ -172,7 +172,7 @@ export async function createTestimonial(token, idCoffee, username, testimonialDa
     try {
         const res = await fetch(`http://localhost:8080/api/testimonials/newTestimonials/${idCoffee}/${username}`, {
             method: "POST",
-            body: JSON.stringify(testimonialData), // Debes enviar testimonialData directamente como objeto
+            body: JSON.stringify(testimonialData), 
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": `Bearer ${token}`,
@@ -201,3 +201,26 @@ export async function getTestimonioCoffee(idCoffee) {
     }
     return await response.json();
 }
+
+
+//BLOQUEAR USUARIO 
+export async function blockUser(username, token) {  
+    try {
+      const response = await fetch(`http://localhost:8080/api/auth/bloquear/${username}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      if (response.ok) {
+        return true; 
+      } else {
+        throw new Error('Error al bloquear usuario');
+      }
+    } catch (error) {
+      console.error('Error al bloquear/desbloquear usuario:', error);
+      throw error;
+    }
+  } 

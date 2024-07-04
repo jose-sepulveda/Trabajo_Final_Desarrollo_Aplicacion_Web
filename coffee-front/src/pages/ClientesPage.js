@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getUsersData } from '../services/api';
-import '../Styles/clientesPage.css'; // Importa el archivo CSS con los estilos
+import { getUsersData, blockUser } from '../services/api';
+import '../Styles/clientesPage.css'; 
 
 function ClientesPage() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        const fetchUsers = async () => {
+        const ObtUsers = async () => {
             try {
                 const token = localStorage.getItem('token');
                 const data = await getUsersData(token);
@@ -21,9 +21,21 @@ function ClientesPage() {
             }
         };
 
-        fetchUsers();
+        ObtUsers();
 
     }, []);
+
+    const bloqueaar = async (username, isLocked) => {
+        try {
+            const token = localStorage.getItem('token');
+            await blockUser(username, token); 
+            setUsers(prevUsers => prevUsers.map(user =>
+                user.username === username ? { ...user, locked: !isLocked } : user
+            ));
+        } catch (error) {
+            console.error('Error al bloquear/desbloquear usuario:', error);
+        }
+    };
 
     return (
         <div className="container">
@@ -34,7 +46,6 @@ function ClientesPage() {
                         <th>Username</th>
                         <th>Email</th>
                         <th>Locked</th>
-                        <th>Disabled</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -43,9 +54,17 @@ function ClientesPage() {
                         <tr key={user.username}>
                             <td>{user.username}</td>
                             <td>{user.email}</td>
-                            <td>{user.locked ? 'Sí' : 'No'}</td>
-                            <td>{user.disabled ? 'Sí' : 'No'}</td>
-                            <td>{}</td>
+                            <td>{user.locked.toString()}</td>
+                            <td>
+                                <label className="switch">
+                                    <input
+                                        type="checkbox"
+                                        checked={user.locked}
+                                        onChange={() => bloqueaar(user.username, user.locked)}
+                                    />
+                                    <span className="slider round"></span>
+                                </label>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

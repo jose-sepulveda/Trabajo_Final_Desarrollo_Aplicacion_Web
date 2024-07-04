@@ -40,7 +40,7 @@ function RegistroPage() {
                 navigate("/login");
             } else {
                 setErrorMessage("Error al registrar el usuario");
-                console.log(resp); // Cambiar esto para manejar errores de manera más específica
+                console.log(resp); 
             }
         } catch (error) {
             setErrorMessage("Error al registrar el usuario");
