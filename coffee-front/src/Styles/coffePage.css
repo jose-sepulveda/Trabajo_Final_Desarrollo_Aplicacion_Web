@@ -21,8 +21,8 @@
 }
 
 .cafe-card img {
-    width: 100%;
-    height: 180px; 
+    width: 100% !important;
+    height: 180px !important; 
     object-fit: cover; 
     border-radius: 4px;
 }

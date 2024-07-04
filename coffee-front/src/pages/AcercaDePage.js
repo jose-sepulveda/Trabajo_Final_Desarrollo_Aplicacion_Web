@@ -4,7 +4,9 @@ import '../Styles/acercaDe.css';
 
 function AcercaDePage (){
     return <>
-        <h3>Perfil alumnos</h3>
+
+        <div className="titulo"><h3>Perfil alumnos</h3></div>
+        
         <div className="perfil-alumnos">
 
             <div className="alumno">
@@ -22,8 +24,13 @@ function AcercaDePage (){
                 Nombre: Sofia Victoria Silva Muñoz 
                 Carrera: Ingenieria Civil Informática
             </p>
-
             </div>
+
+        </div>
+        <div className="github">
+            <a href='https://github.com/jose-sepulveda/Trabajo_Final_Desarrollo_Aplicacion_Web.git'>
+                Link a Repositorio de GitHub
+            </a>
         </div>
     </>
 }

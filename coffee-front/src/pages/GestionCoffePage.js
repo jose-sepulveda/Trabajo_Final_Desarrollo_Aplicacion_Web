@@ -63,21 +63,19 @@ function GestionCoffePage() {
 
             try {
                 const resp = await createCoffee(auth.token, formData);
-
-                if (resp) {
+    
+                if (resp.ok) {
                     toast.success("Café creado exitosamente", {
-                        position: "top-center", 
+                        position: "top-center",
                         autoClose: 2000
                     });
-
-                    // datos pa tablitaa con datos creados
+    
+                    const coffeeList = await getCoffees(auth.token);
+                    setCoffees(coffeeList);
                     setName("");
                     setDescription("");
                     setPrice("");
                     setImage64(null);
-                    setErrorMessage("");
-                    const coffeeList = await getCoffees(auth.token);
-                    setCoffees(coffeeList); 
                 } else {
                     setErrorMessage("Error al registrar café");
                 }
@@ -86,7 +84,7 @@ function GestionCoffePage() {
                 setErrorMessage("Error al registrar café");
             }
         } else {
-            setErrorMessage("No eres ADMIN para crear café");
+            setErrorMessage("No tienes permisos para crear café");
         }
     };
 

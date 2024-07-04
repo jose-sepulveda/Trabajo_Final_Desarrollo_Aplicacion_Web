@@ -41,21 +41,20 @@ export async function registerAccount(newUser) {
 //CREAR CAFE
 export async function createCoffee(token, formData) {
     try {
-        const res = await fetch("http://localhost:8080/api/coffee/newCoffee", {
+        const res = await fetch(`http://localhost:8080/api/coffee/newCoffee`, {
             method: "POST",
             body: formData,
             headers: {
                 "Authorization": `Bearer ${token}`,
             }
         });
-
-        const data = await res.json();
-        return data; 
+        return res; 
     } catch (error) {
         console.error("Error al crear café:", error);
         throw error; 
     }
 }
+
 
 //OBTENER LISTA DE CAFE 
 export async function getCoffees() {

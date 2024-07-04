@@ -57,12 +57,8 @@ function ClientesPage() {
                             <td>{user.locked.toString()}</td>
                             <td>
                                 <label className="switch">
-                                    <input
-                                        type="checkbox"
-                                        checked={user.locked}
-                                        onChange={() => bloqueaar(user.username, user.locked)}
-                                    />
-                                    <span className="slider round"></span>
+                                    <input type="checkbox" checked={user.locked} onChange={() => bloqueaar(user.username, user.locked)}/>
+                                    
                                 </label>
                             </td>
                         </tr>

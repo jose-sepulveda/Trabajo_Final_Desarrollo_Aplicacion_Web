@@ -1,37 +1,41 @@
 import React from 'react';
 import imagen from '../image/10.png';
-//import imagenM from '../image/11.png';
-//import imagenG from '../image/11.png';
-//import imagenS from '../image/11.png';
+import imagenM from '../image/imagenM.jpg';
+import imagenG from '../image/imagenG.jpg';
+import imagenS from '../image/imagenS.jpg';
 import '../Styles/inicioPage.css';
 
 
 function InicioPage(){
     return <>
         <div className="container">
-            <img src={imagen} alt="" />
+            <img src={imagen} alt="banner" />
 
         <div className='card-inicio'>
+
             <div className="card">
-                <h3>Nuestras Maquinas</h3>
+                <h4>Nuestras Maquinas</h4>
+                <img src={imagenM} alt="" style={{ width: '100px', height: '100px', objectFit: 'cover' }}/>
               
                 <p>
-                    descripcion
+                    Nuestras máquinas de café 
                 </p>
             </div>
 
             <div className="card">
-                <h3>Nuestras Maquinas</h3>
+                <h4>Nuestros granos</h4>
+                <img src={imagenG} alt="" style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
              
                 <p>
-                    descripcion
+                    Los granos para cada cafe son de selección premiun
                 </p>
             </div>
 
             <div className="card">
-                <h3>Nuestras Maquinas</h3>
+                <h4>Sucursal</h4>
+                <img src={imagenS} alt="" style={{ width: '100px', height: '100px', objectFit: 'cover' }}/>
                 <p>
-                    descripcion
+                    La sucursal se encuentra en Curicó
                 </p>
             </div>
         </div>
