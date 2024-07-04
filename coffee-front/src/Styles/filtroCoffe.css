@@ -1,0 +1,36 @@
+.filtro {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.filtro input {
+    width: 500px;
+    padding: 10px;
+    border: 1px solid #c5a99e;
+    border-radius: 20px 20px 20px 20px;
+    font-size: 16px;
+    margin-right: 10px;
+    outline: none;
+}
+
+.filtro button {
+    width: 70px;
+    padding: 10px;
+    background-color: #754633;
+    color: white;
+    border: none;
+    border-radius: 20px 20px 20px 20px;
+}
+
+
+.filtro button:hover {
+    background-color: #c5a99e;
+}
+
+.filtro p {
+    color: rgb(122, 27, 27);
+    font-size: 14px;
+    margin-top: 5px;
+}

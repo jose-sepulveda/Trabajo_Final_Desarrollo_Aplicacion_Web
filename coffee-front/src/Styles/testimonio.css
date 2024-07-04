@@ -1,0 +1,70 @@
+/* botón de abrir el modal */
+.btn-primary {
+    background-color: #c5a99e !important;
+    border-color: #c5a99e !important;
+    color: white !important;
+    font-size: 16px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.btn-primary:hover {
+    background-color: #754633 !important;
+    border-color: #754633 !important;
+}
+
+/* contenido del modal */
+.modal-content {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+}
+
+/* encabezado del modal */
+.modal-header {
+    background-color: #c5a99e !important;
+    color: white !important;
+    padding: 15px !important;
+}
+
+.modal-header .modal-title {
+    font-size: 20px !important;
+}
+
+.modal-header .close {
+    color: white !important;
+}
+
+/* cuerpo del modal */
+.modal-body {
+    padding: 20px !important;
+}
+
+/* formulario dentro del modal */
+.modal-testimonio {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-bottom: 15px !important;
+}
+
+.modal-testimonio label {
+    color: #754633 !important;
+    font-weight: bold !important;
+    font-size: 16px !important;
+}
+
+/* Estilos para el textarea */
+.modal-testimonio .form-testimonio {
+    width: 100% !important;
+    height: 100px !important;
+    padding: 10px !important;
+    border: 1px solid #c5a99e !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+}
+
+.modal-testimonio .form-testimonio:focus {
+    border-color: #c5a99e !important;
+    outline: none !important;
+    box-shadow: 0 0 5px #754633 !important;
+}

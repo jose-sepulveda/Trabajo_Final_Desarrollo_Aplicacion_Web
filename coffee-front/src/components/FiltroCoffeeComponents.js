@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getCoffeeByName, getCoffees } from '../services/api';
+import '../Styles/filtroCoffe.css';
 
 const FiltroCoffeeComponents = ({ filtrar }) => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -30,14 +31,9 @@ const FiltroCoffeeComponents = ({ filtrar }) => {
     };
 
     return (
-        <div>
-            <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Nombre de café"
-            />
-            <button onClick={buscador}>Search</button>
+        <div className="filtro">
+            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}placeholder="Nombre de café"/>
+            <button onClick={buscador}>buscar</button>
             {error && <p>{error}</p>}
         </div>
     );

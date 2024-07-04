@@ -3,6 +3,7 @@ import { AuthContext } from '../auth/AuthContext';
 import { createTestimonial } from '../services/api';
 import { toast } from 'react-toastify';
 import { Modal, Button } from 'react-bootstrap';
+import '../Styles/testimonio.css';
 
 const Testimonio = ({ idCoffee }) => {
     const [testimonialData, setTestimonialData] = useState('');
@@ -31,7 +32,7 @@ const Testimonio = ({ idCoffee }) => {
     };
 
     return (
-        <>
+        <div>
             <Button variant="primary" onClick={mostrarModal}>
                 Crear Testimonio
             </Button>
@@ -42,10 +43,10 @@ const Testimonio = ({ idCoffee }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={envioModal}>
-                        <div className="form-group">
+                        <div className="modal-testimonio">
                             <label htmlFor="testimonial">Testimonio:</label>
                             <textarea
-                                className="form-control"
+                                className="form-testimonio"
                                 id="testimonial"
                                 value={testimonialData}
                                 onChange={(e) => setTestimonialData(e.target.value)}
@@ -58,7 +59,7 @@ const Testimonio = ({ idCoffee }) => {
                     </form>
                 </Modal.Body>
             </Modal>
-        </>
+        </div>
     );
 };
 

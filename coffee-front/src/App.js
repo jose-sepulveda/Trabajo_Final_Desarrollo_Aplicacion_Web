@@ -37,7 +37,7 @@ function App() {
         </footer>
     </HashRouter>
     <ToastContainer position="top-center" autoClose={1000} />
-    </AuthProvider> //todo lo que este dentro de esto se podra usaar el metodo del AuthContext 
+    </AuthProvider>
   );
 }
 

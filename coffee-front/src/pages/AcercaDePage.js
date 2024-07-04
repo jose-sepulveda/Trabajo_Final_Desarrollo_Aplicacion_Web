@@ -12,7 +12,7 @@ function AcercaDePage (){
                 <p>
                 Nombre: José Andrés Sepulveda Gajardo 
                 Carrera: Ingenieria Civil Informática
-            </p>
+                </p>
                 
             </div>
 

@@ -39,10 +39,9 @@ function CoffeesList() {
             {coffees.map(coffee => (
                 <div key={coffee.idCoffee} className="cafe-card">
                     <img src={`data:image/jpeg;base64,${coffee.image64}`} alt={coffee.name} />
-                    <h4>{coffee.name}</h4>
+                    <h5>COFFEE #{coffee.name}</h5>
                     <p>{coffee.description}</p>
-                    <p>{coffee.price} $</p>
-                    {/* Muestra el componente Testimonio solo para CUSTOMER */}
+                    <p>${coffee.price} </p>
                     {auth.role === 'CUSTOMER' && (
                         <Testimonio idCoffee={coffee.idCoffee} />
                     )}

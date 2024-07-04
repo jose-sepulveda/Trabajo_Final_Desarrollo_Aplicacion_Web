@@ -1,0 +1,44 @@
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* contenido filtrado */
+.datos-card {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.imagen {
+    margin-right: 30px;
+}
+
+.imagen img {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.detalle-filtro {
+    display: flex;
+    flex-direction: column;
+}
+
+.detalle-filtro h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #754633;
+}
+
+.detalle-filtro p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 16px;
+}

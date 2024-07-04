@@ -1,24 +1,33 @@
 .coffees-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     gap: 20px;
+    width: 100%; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 20px; 
+
 }
 
 .cafe-card {
+    flex: 1 1 calc(25% - 20px);
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
     width: 200px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .cafe-card img {
     width: 100%;
-    height: auto;
-    border-radius: 5px;
+    height: 180px; 
+    object-fit: cover; 
+    border-radius: 4px;
 }
 
-.cafe-card h4 {
+.cafe-card h5 {
     margin: 10px 0;
 }
 

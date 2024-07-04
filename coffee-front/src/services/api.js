@@ -133,7 +133,7 @@ export const getCoffeeByName = async (name) => {
         },
       });
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`Debe ingresar un nombre de Café`);
       }
       return response.json();
     } catch (error) {
