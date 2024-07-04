@@ -24,6 +24,7 @@ const FiltroCoffeeComponents = ({ filtrar }) => {
         try {
             const coffeeData = await getCoffeeByName(searchTerm, coffees);
             filtrar(coffeeData);
+            setSearchTerm('');
             setError(null);
         } catch (error) {
             setError(error.message);

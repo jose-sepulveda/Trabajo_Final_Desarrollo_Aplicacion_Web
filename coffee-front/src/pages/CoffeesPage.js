@@ -10,6 +10,10 @@ function CoffeesPage() {
         setfiltroCoffee(coffeeData);
     };
 
+    const limpiarBusqueda = () => {
+        setfiltroCoffee(null);
+    };
+
     return (
         <div className='container'>
             <h3>Coffees de general y admin</h3>
@@ -24,6 +28,7 @@ function CoffeesPage() {
                         <p>Nombre Coffee: {filtroCoffee.name}</p>
                         <p>Descripción: {filtroCoffee.description}</p>
                         <p>Precio: {filtroCoffee.price}</p>
+                        <button onClick={limpiarBusqueda} className="btn-limpiar">Limpiar búsqueda</button>
                     </div>
                 </div>
             )}

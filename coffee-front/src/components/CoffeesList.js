@@ -59,7 +59,6 @@ function CoffeesList() {
                     <Button variant="primary" onClick={() => openModal(coffee)}>
                         Ver Testimonios
                     </Button>
-                    {/* Muestra el componente Testimonio solo para CUSTOMER */}
                     {auth.role === 'CUSTOMER' && (
                         <Testimonio idCoffee={coffee.idCoffee} />
                     )}
