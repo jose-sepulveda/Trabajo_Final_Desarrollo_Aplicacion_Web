@@ -29,8 +29,7 @@ function GestionCoffePage() {
             try {
                 const coffeeList = await getCoffees(auth.token);
                 setCoffees(coffeeList);
-
-                 // Obtener testimonios para cada café
+                
                  const testimonialsData = {};
                  for (const coffee of coffeeList) {
                      const coffeeTestimonials = await getTestimonioCoffee(coffee.idCoffee);
@@ -52,7 +51,7 @@ function GestionCoffePage() {
     };
 
     const crearCoffee = async (e) => {
-        e.preventDefault(); // Evita el comportamiento por defecto del formulario
+        e.preventDefault(); 
 
         if (decodedToken.role === "ADMIN") {
             const formData = new FormData();

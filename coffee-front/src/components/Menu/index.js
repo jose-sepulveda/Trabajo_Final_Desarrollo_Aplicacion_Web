@@ -5,21 +5,19 @@ import logo from '../../image/6.png';
 import { AuthContext } from "../../auth/AuthContext";
 import { jwtDecode } from "jwt-decode";
 
-
-
 function Menu(){
 
-    const {auth, logout} = React.useContext(AuthContext);//para cerrar sesion
+    const {auth, logout} = React.useContext(AuthContext);
     let decodedToken = null;
     const navigate = useNavigate(); 
 
-    if (auth.token){ //crear condicion de role === "ADMIN"
+    if (auth.token){ 
         console.log(auth.token);
         decodedToken = jwtDecode(auth.token);
         console.log(decodedToken.role);
 
 
-        routes.splice(0, routes.length); //limpia las rutas
+        routes.splice(0, routes.length); 
 
         //rutas general
         routes.push({to:"/", text:"Inicio"})
@@ -33,6 +31,7 @@ function Menu(){
             routes.push({ to: "/clientes-page", text: "Clientes Page" });
         }
 
+        //rutas para customer
         if (decodedToken.role === "CUSTOMER") {
             routes.push({to:"/testimonial-clientes", text:"Coffees"})
         }

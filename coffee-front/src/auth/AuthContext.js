@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
         const token = localStorage.getItem("token");
         if (token) {
             const decodedToken = jwtDecode(token);
-            const { role, sub: username } = decodedToken; // Asumiendo que el campo 'sub' es el username en tu token
+            const { role, sub: username } = decodedToken; 
             setAuth({ token, role, username });
         }
     }, []);

@@ -16,7 +16,7 @@ function CoffeesPage() {
 
     return (
         <div className='container'>
-            <h3>Coffees de general y admin</h3>
+            <h3>Coffees</h3>
             <FiltroCoffeeComponents filtrar={filtrar} /> 
             {filtroCoffee && (
                 <div className='datos-card'>
