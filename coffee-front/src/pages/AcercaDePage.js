@@ -11,19 +11,15 @@ function AcercaDePage (){
 
             <div className="alumno">
                 <img src={imagen1} alt="" />
-                <p>
-                Nombre: José Andrés Sepulveda Gajardo 
-                Carrera: Ingenieria Civil Informática
-                </p>
+                <p>Nombre: José Andrés Sepulveda Gajardo </p>
+                <p>Carrera: Ingenieria Civil Informática</p>
                 
             </div>
 
             <div className="alumna">
                 <img src={imagen2} alt="" />
-                <p>
-                Nombre: Sofia Victoria Silva Muñoz 
-                Carrera: Ingenieria Civil Informática
-            </p>
+                <p>Nombre: Sofia Victoria Silva Muñoz</p>
+                <p>Carrera: Ingenieria Civil Informática</p>
             </div>
 
         </div>
