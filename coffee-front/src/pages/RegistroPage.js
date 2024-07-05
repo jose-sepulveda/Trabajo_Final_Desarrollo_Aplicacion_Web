@@ -19,11 +19,9 @@ function RegistroPage() {
             return;
         }
 
-        // Encriptar la contraseña antes de enviarla
         const salt = bcrypt.genSaltSync(12);
         const hashedPassword = bcrypt.hashSync(password, salt);
 
-        // Crear el objeto newUser con los campos adicionales
         const newUser = { 
             username, 
             email, 

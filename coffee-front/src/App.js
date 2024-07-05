@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Menu } from './components/Menu';

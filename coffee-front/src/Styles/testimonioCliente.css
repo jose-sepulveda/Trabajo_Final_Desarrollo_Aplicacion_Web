@@ -4,7 +4,6 @@
     padding: 20px;
 }
 
-/* contenido filtrado */
 .datos-card {
     display: flex;
     flex-direction: row;
@@ -42,7 +41,6 @@
     color: #555;
     font-size: 16px;
 }
-
 
 .btn-limpiar{
     background-color: #c5a99e;
